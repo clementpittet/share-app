@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.4.14
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 28 Septembre 2017 à 22:18
--- Version du serveur :  10.1.10-MariaDB
--- Version de PHP :  5.6.19
+-- Généré le :  Lun 02 Octobre 2017 à 17:50
+-- Version du serveur :  5.6.26
+-- Version de PHP :  5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,13 +23,46 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `events`
+--
+
+CREATE TABLE IF NOT EXISTS `events` (
+  `id_events` int(11) NOT NULL,
+  `name_events` varchar(255) DEFAULT NULL,
+  `date_events` datetime DEFAULT CURRENT_TIMESTAMP,
+  `cost_event` float NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `events`
+--
+
+INSERT INTO `events` (`id_events`, `name_events`, `date_events`, `cost_event`) VALUES
+(1, 'test event', NULL, 0),
+(2, 'test event', NULL, 0),
+(3, 'etette', '2017-10-02 15:59:57', 50.2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `events_user`
+--
+
+CREATE TABLE IF NOT EXISTS `events_user` (
+  `id_events` int(11) NOT NULL COMMENT 'Primary Key: id_events for event.',
+  `id_user` int(11) NOT NULL COMMENT 'Primary Key: id_user for user.'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `groupe`
 --
 
-CREATE TABLE `groupe` (
+CREATE TABLE IF NOT EXISTS `groupe` (
   `id_groupe` int(11) NOT NULL,
   `name_groupe` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `groupe`
@@ -48,14 +81,14 @@ INSERT INTO `groupe` (`id_groupe`, `name_groupe`) VALUES
 -- Structure de la table `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id_user` int(11) NOT NULL,
   `name_user` varchar(255) NOT NULL,
   `firstname_user` varchar(255) NOT NULL,
   `username_user` varchar(255) NOT NULL,
   `password_user` varchar(255) NOT NULL,
   `id_groupe` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `user`
@@ -75,6 +108,18 @@ INSERT INTO `user` (`id_user`, `name_user`, `firstname_user`, `username_user`, `
 --
 
 --
+-- Index pour la table `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`id_events`);
+
+--
+-- Index pour la table `events_user`
+--
+ALTER TABLE `events_user`
+  ADD PRIMARY KEY (`id_events`,`id_user`);
+
+--
 -- Index pour la table `groupe`
 --
 ALTER TABLE `groupe`
@@ -92,15 +137,20 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT pour la table `events`
+--
+ALTER TABLE `events`
+  MODIFY `id_events` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT pour la table `groupe`
 --
 ALTER TABLE `groupe`
-  MODIFY `id_groupe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_groupe` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
